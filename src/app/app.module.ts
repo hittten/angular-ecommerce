@@ -5,12 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { EuroCurrencyPipe } from './euro-currency.pipe';
+import { HighlightDirective } from './highlight.directive';
+import { TooltipDirective } from './tooltip.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ProductListComponent
+    ProductListComponent,
+    EuroCurrencyPipe,
+    HighlightDirective,
+    TooltipDirective
   ],
   imports: [
     BrowserModule,
