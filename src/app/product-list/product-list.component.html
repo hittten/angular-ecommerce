@@ -1,10 +1,10 @@
 <div class="wrapper">
   <h1>Products</h1>
   <div class="views">
-    <span class="material-icons" [ngClass]="{'selected':!gridView}" (click)="gridView=false">
+    <span class="material-icons" appTooltip="list view" [ngClass]="{'selected':!gridView}" (click)="gridView=false">
       view_list
     </span>
-    <span class="material-icons" [ngClass]="{'selected':gridView}" (click)="gridView=true">
+    <span class="material-icons" appTooltip="grid view" [ngClass]="{'selected':gridView}" (click)="gridView=true">
       view_module
     </span>
   </div>
@@ -16,7 +16,7 @@
         ({{product.createdAt | date:'dd/MM/yy'}}) -
         {{product.description.length > 150 ? (product.description .slice(0, 150)) + '...' : product.description}}
       </p>
-      <div class="price">{{product.price}} €</div>
+      <div appHighlight="red" class="price">{{product.price | euroCurrency}}</div>
       <div>
         <button class="button">add to shopping cart</button>
       </div>
