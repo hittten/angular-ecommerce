@@ -1,8 +1,23 @@
-<header class="wrapper">
-  <span class="material-icons">
+<header #header class="wrapper">
+  <span #menuIcon class="material-icons" (click)="toggleNav(header, menuIcon)">
     menu
   </span>
-  <!--  TODO add nav -->
+  <nav>
+    <ul>
+      <li (click)="toggleNav(header, menuIcon)">
+        <span class="material-icons">
+          view_list
+        </span>
+        Products
+      </li>
+      <li (click)="toggleNav(header, menuIcon)">
+        <span class="material-icons">
+          shopping_cart
+        </span>
+        Shopping Cart
+      </li>
+    </ul>
+  </nav>
   <div>
     Angular Ecommerce
   </div>
