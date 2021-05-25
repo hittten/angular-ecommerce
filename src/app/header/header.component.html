@@ -4,13 +4,13 @@
   </span>
   <nav>
     <ul>
-      <li (click)="toggleNav(header, menuIcon)">
+      <li routerLink="/products" routerLinkActive="active" (click)="toggleNav(header, menuIcon)">
         <span class="material-icons">
           view_list
         </span>
         Products
       </li>
-      <li (click)="toggleNav(header, menuIcon)">
+      <li routerLink="/shopping-cart" routerLinkActive="active" (click)="toggleNav(header, menuIcon)">
         <span class="material-icons">
           shopping_cart
         </span>
@@ -21,7 +21,7 @@
   <div>
     Angular Ecommerce
   </div>
-  <span class="material-icons">
+  <span class="material-icons" routerLink="/shopping-cart">
     shopping_cart
   </span>
 </header>

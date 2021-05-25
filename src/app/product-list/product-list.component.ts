@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {ProductService} from "../product.service";
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {Product} from "../product";
+import {EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-product-list',
@@ -8,11 +8,14 @@ import {Product} from "../product";
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  products: Product[];
+
+  @Input() title: string = '';
+  @Input() products: Product[] = [];
+  @Input() buttonText: string = '';
+  @Output() buttonClick = new EventEmitter<Product>();
   gridView = false;
 
-  constructor(private productService: ProductService) {
-    this.products = productService.list()
+  constructor() {
   }
 
   ngOnInit(): void {
