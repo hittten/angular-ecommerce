@@ -36,8 +36,13 @@ ul li * {
 }
 
 ul li h2 {
+  cursor: pointer;
   grid-area: b;
   font-size: 14px;
+}
+
+ul li h2:hover {
+  opacity: 0.7
 }
 
 ul li img {

@@ -8,6 +8,9 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { EuroCurrencyPipe } from './euro-currency.pipe';
 import { HighlightDirective } from './highlight.directive';
 import { TooltipDirective } from './tooltip.directive';
+import { ProductsPageComponent } from './products-page/products-page.component';
+import { ShoppingCartPageComponent } from './shopping-cart-page/shopping-cart-page.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,11 @@ import { TooltipDirective } from './tooltip.directive';
     ProductListComponent,
     EuroCurrencyPipe,
     HighlightDirective,
-    TooltipDirective
+    TooltipDirective,
+    EuroCurrencyPipe,
+    ProductsPageComponent,
+    ShoppingCartPageComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
