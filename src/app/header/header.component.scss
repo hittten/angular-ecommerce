@@ -41,6 +41,10 @@ header ul li {
   align-items: center;
 }
 
+header ul li.active {
+  color: darkgray;
+}
+
 header ul li:hover {
   background: rgba(0, 0, 0, .04);
 }

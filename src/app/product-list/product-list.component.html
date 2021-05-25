@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <h1>Products</h1>
+  <h1>{{title}}</h1>
   <div class="views">
     <span class="material-icons" appTooltip="list view" [ngClass]="{'selected':!gridView}" (click)="gridView=false">
       view_list
@@ -10,15 +10,15 @@
   </div>
   <ul [class.grid]="gridView">
     <li *ngFor="let product of products">
-      <h2>{{product.name | uppercase}}</h2>
+      <h2 routerLink="/product/{{product.id}}">{{product.name | uppercase}}</h2>
       <img [src]="product.image" [alt]="product.name">
       <p>
         ({{product.createdAt | date:'dd/MM/yy'}}) -
         {{product.description.length > 150 ? (product.description .slice(0, 150)) + '...' : product.description}}
       </p>
-      <div appHighlight="red" class="price">{{product.price | euroCurrency}}</div>
+      <div class="price">{{product.price | euroCurrency}}</div>
       <div>
-        <button class="button">add to shopping cart</button>
+        <button class="button" (click)="buttonClick.emit(product)">{{buttonText}}</button>
       </div>
     </li>
   </ul>
