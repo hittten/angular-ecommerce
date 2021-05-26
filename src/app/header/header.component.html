@@ -10,6 +10,12 @@
         </span>
         Products
       </li>
+      <li routerLink="/product-create" routerLinkActive="active" (click)="toggleNav(header, menuIcon)">
+        <span class="material-icons">
+          add
+        </span>
+        Create Product
+      </li>
       <li routerLink="/shopping-cart" routerLinkActive="active" (click)="toggleNav(header, menuIcon)">
         <span class="material-icons">
           shopping_cart

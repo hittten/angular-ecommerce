@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Product} from "../product";
 import {EventEmitter} from '@angular/core';
 
@@ -16,6 +16,10 @@ export class ProductListComponent implements OnInit {
   gridView = false;
 
   constructor() {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('ngOnChanges', changes);
   }
 
   ngOnInit(): void {
