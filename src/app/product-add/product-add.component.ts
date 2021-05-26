@@ -19,7 +19,10 @@ export class ProductAddComponent implements OnInit, DoCheck, AfterContentInit, A
     name: ['', [Validators.required, Validators.minLength(3)]],
     price: ['', [Validators.required, Validators.min(1), Validators.max(1000000)]],
     description: ['', Validators.required],
+    image: ['', Validators.required],
   });
+
+  private image: File | undefined
 
   constructor(
     private fb: FormBuilder,
@@ -81,9 +84,17 @@ export class ProductAddComponent implements OnInit, DoCheck, AfterContentInit, A
   }
 
   onSubmit() {
-    const newProduct = this.productService.create(this.productForm.value);
-    this.productForm.reset({name: '', price: '', description: ''});
+    const newProduct = this.productService.create({...this.productForm.value, image: this.image});
+    this.productForm.reset({name: '', price: '', description: '', image: ''});
 
     console.log('new product', newProduct);
   }
+
+  fileChange($event: Event) {
+    const input = $event.target as HTMLInputElement
+
+    this.image = input.files?.[0];
+  }
+
+
 }

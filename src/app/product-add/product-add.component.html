@@ -23,15 +23,22 @@
       </span>
     </p>
     <p>
+      <label for="image">image</label>
+      <input id="image" formControlName="image" type="file" (change)="fileChange($event)" required/>
+      <span *ngIf="getError('image') as message">
+        <strong>{{message}}</strong>
+      </span>
+    </p>
+    <p>
       <button class="button" type="submit" [disabled]="!productForm.valid">Save</button>
     </p>
   </form>
 
-  <!--  <p><strong>Form Value: </strong>{{productForm.value | json}}</p>-->
-  <!--  <p><strong>Form Valid: </strong>{{productForm.valid}}</p>-->
-  <!--  <p><strong>Form Status: </strong>{{productForm.status}}</p>-->
+    <p><strong>Form Value: </strong>{{productForm.value | json}}</p>
+    <p><strong>Form Valid: </strong>{{productForm.valid}}</p>
+    <p><strong>Form Status: </strong>{{productForm.status}}</p>
 
-  <!--  <p><strong>name errors:</strong> {{productForm.controls.name.errors | json}}</p>-->
-  <!--  <p><strong>price errors:</strong> {{productForm.controls.price.errors | json}}</p>-->
-  <!--  <p><strong>description errors:</strong> {{productForm.controls.description.errors | json}}</p>-->
+    <p><strong>name errors:</strong> {{productForm.controls.name.errors | json}}</p>
+    <p><strong>price errors:</strong> {{productForm.controls.price.errors | json}}</p>
+    <p><strong>description errors:</strong> {{productForm.controls.description.errors | json}}</p>
 </div>
