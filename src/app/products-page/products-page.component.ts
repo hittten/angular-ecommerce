@@ -1,14 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from "../product.service";
-import {Product} from "../product";
+import {Subscription} from "rxjs";
+import {ProductClickEvent} from "../product-list/product-list.component";
 
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
   styleUrls: ['./products-page.component.scss']
 })
-export class ProductsPageComponent implements OnInit {
-  products = this.productService.list();
+export class ProductsPageComponent implements OnInit, OnDestroy {
+  private shoppingCartSubscription: Subscription = new Subscription();
+
+  $products = this.productService.list();
 
   constructor(private productService: ProductService) {
   }
@@ -16,8 +19,16 @@ export class ProductsPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addToShoppingCart(product: Product) {
-    this.productService.addToShoppingCart(product);
+  addToShoppingCart(event: ProductClickEvent) {
+    event.element.disabled = true;
+
+    this.shoppingCartSubscription = this.productService.addToShoppingCart(event.product)
+      .subscribe(() => {
+        event.element.disabled = false;
+      });
   }
 
+  ngOnDestroy(): void {
+    this.shoppingCartSubscription.unsubscribe();
+  }
 }

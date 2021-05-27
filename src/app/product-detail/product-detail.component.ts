@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Product} from "../product";
 import {ProductService} from "../product.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-product-detail',
@@ -11,7 +12,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class ProductDetailComponent implements OnInit {
 
-  product: Product;
+  $product: Observable<Product>;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,7 +20,8 @@ export class ProductDetailComponent implements OnInit {
     public sanitizer: DomSanitizer,
   ) {
     const id = this.route.snapshot.paramMap.get('id')!
-    this.product = productService.getProduct(id);
+
+    this.$product = productService.getProduct(id);
   }
 
   ngOnInit(): void {

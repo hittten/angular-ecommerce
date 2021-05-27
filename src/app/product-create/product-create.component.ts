@@ -91,11 +91,10 @@ export class ProductCreateComponent implements OnInit, DoCheck, AfterContentInit
       description: formValue.description as string,
       price: Number(formValue.price),
       image: this.image!,
+    }).subscribe(() => {
+      this.productForm.reset({name: '', price: '', description: '', image: ''});
+      console.log('new product', newProduct);
     })
-
-    this.productForm.reset({name: '', price: '', description: '', image: ''});
-
-    console.log('new product', newProduct);
   }
 
   fileChange($event: Event) {
