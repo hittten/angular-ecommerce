@@ -1,4 +1,4 @@
-<div class="product">
+<div class="product" *ngIf="$product | async as product; else loading">
   <h2>{{product.name | uppercase}}</h2>
   <img [src]="sanitizer.bypassSecurityTrustUrl(product.image)" [alt]="product.name">
   <p>
@@ -7,3 +7,5 @@
   </p>
   <div class="price">{{product.price | euroCurrency}}</div>
 </div>
+
+<ng-template #loading><img class="loading" src="assets/spinner.svg" alt="loading"></ng-template>
