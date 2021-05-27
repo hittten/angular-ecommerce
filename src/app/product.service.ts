@@ -1,8 +1,14 @@
 import {Injectable} from '@angular/core';
-import {PRODUCTS, SHOPPING_CART} from "./mock-products";
 import {Product} from "./product";
-import {Observable, of} from "rxjs";
-import {delay, tap} from "rxjs/operators";
+import {Observable, switchMap} from "rxjs";
+import {tap} from "rxjs/operators";
+import {environment} from "../environments/environment";
+import {HttpClient} from "@angular/common/http";
+
+const apiUrl = {
+  products: `${environment.apiUrl}/products/${environment.user}/`,
+  shoppingCart: `${environment.apiUrl}/shoppingCart/${environment.user}/`,
+};
 
 export type ProductBase = Pick<Product, "name" | "price" | "description">
 
@@ -15,66 +21,64 @@ export interface ProductInput extends ProductBase {
 })
 export class ProductService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   create(product: ProductInput): Observable<Product> {
-    const id = (Math.floor(Math.random() * (999 - 100) + 100) + new Date().getTime()).toString()
-
-    const data = {
-      ...product,
-      id,
-      createdAt: new Date().toISOString(),
-      image: URL.createObjectURL(product.image),
-    }
-
-    PRODUCTS.push(data);
-
-    return of(data).pipe(
-      delay(500),
-      tap(() => console.log(data, 'was created'))
-    );
+    return this.toBase64(product.image)
+      .pipe(
+        tap(image => console.log(image)),
+        switchMap(image => this.http.post<Product>(apiUrl.products, {...product, image})),
+        tap(product => console.log(product, 'was created')),
+      )
   }
 
   list(): Observable<Product[]> {
-    return of(PRODUCTS).pipe(
-      delay(500),
+    return this.http.get<Product[]>(apiUrl.products).pipe(
       tap(() => console.log('listing products'))
     );
   }
 
   listShoppingCartItems(): Observable<Product[]> {
-    return of([...SHOPPING_CART]).pipe(
-      delay(500),
+    return this.http.get<Product[]>(apiUrl.shoppingCart).pipe(
       tap(() => console.log('listing shopping cart'))
     );
   }
 
   getProduct(id: string): Observable<Product> {
-    const index = PRODUCTS.findIndex(value => value.id === id);
-
-    return of(PRODUCTS[index]).pipe(
-      delay(500),
-      tap(() => console.log('get product', PRODUCTS[index]))
+    return this.http.get<Product>(`${apiUrl.products}${id}`).pipe(
+      tap((product) => console.log('get product', product))
     );
   }
 
   addToShoppingCart(product: Product): Observable<string> {
-    SHOPPING_CART.push(product);
-
-    return of('OK').pipe(
-      delay(500),
-      tap(() => console.log(product, 'was added to shopping cart'))
-    );
+    return this.http.put(apiUrl.shoppingCart + product.id, null, {responseType: 'text'})
+      .pipe(
+        tap(() => console.log(product, 'was added to shopping cart'))
+      );
   }
 
   removeFromShoppingCart(product: Product): Observable<string> {
-    const id = SHOPPING_CART.findIndex(value => value.id === product.id);
-    SHOPPING_CART.splice(id, 1);
+    return this.http.delete(apiUrl.shoppingCart + product.id, {responseType: 'text'})
+      .pipe(
+        tap(() => console.log(product, 'was removed from shopping cart'))
+      );
+  }
 
-    return of('OK').pipe(
-      delay(500),
-      tap(() => console.log(product, 'was removed from shopping cart'))
-    );
+  toBase64(file: Blob) {
+    return new Observable<string | ArrayBuffer>(subscriber => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (!reader.result) {
+          subscriber.error(new Error('null result'))
+          return;
+        }
+
+        subscriber.next(reader.result);
+      };
+      reader.onerror = (error) => subscriber.error(error);
+      reader.onloadend = () => subscriber.complete();
+    })
   }
 }
