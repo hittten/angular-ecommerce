@@ -1,6 +1,12 @@
 import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Product} from "../product";
 import {EventEmitter} from '@angular/core';
+import {Observable, of} from "rxjs";
+
+export interface ProductClickEvent {
+  product: Product;
+  element: HTMLButtonElement;
+}
 
 @Component({
   selector: 'app-product-list',
@@ -10,9 +16,9 @@ import {EventEmitter} from '@angular/core';
 export class ProductListComponent implements OnInit {
 
   @Input() title: string = '';
-  @Input() products: Product[] = [];
+  @Input() $products: Observable<Product[]> = of([]);
   @Input() buttonText: string = '';
-  @Output() buttonClick = new EventEmitter<Product>();
+  @Output() buttonClick = new EventEmitter<ProductClickEvent>();
   gridView = false;
 
   constructor() {

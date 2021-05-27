@@ -81,9 +81,8 @@ export class ProductAddComponent implements OnInit, DoCheck, AfterContentInit, A
   }
 
   onSubmit() {
-    const newProduct = this.productService.create(this.productForm.value);
-    this.productForm.reset({name: '', price: '', description: ''});
-
-    console.log('new product', newProduct);
+    this.productService.create(this.productForm.value).subscribe(() => {
+      this.productForm.reset({name: '', price: '', description: ''});
+    });
   }
 }
