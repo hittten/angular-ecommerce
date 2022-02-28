@@ -19,7 +19,10 @@ export class ProductCreateComponent implements OnInit, DoCheck, AfterContentInit
     name: ['', [Validators.required, Validators.minLength(3)]],
     price: ['', [Validators.required, Validators.min(1), Validators.max(1000000)]],
     description: ['', Validators.required],
+    image: ['', Validators.required],
   });
+
+  private image?: File
 
   constructor(
     private fb: FormBuilder,
@@ -87,10 +90,17 @@ export class ProductCreateComponent implements OnInit, DoCheck, AfterContentInit
       name: formValue.name as string,
       description: formValue.description as string,
       price: Number(formValue.price),
+      image: this.image!,
     })
 
-    this.productForm.reset({name: '', price: '', description: ''});
+    this.productForm.reset({name: '', price: '', description: '', image: ''});
 
     console.log('new product', newProduct);
+  }
+
+  fileChange($event: Event) {
+    const input = $event.target as HTMLInputElement
+
+    this.image = input.files?.[0];
   }
 }

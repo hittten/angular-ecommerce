@@ -11,7 +11,7 @@
   <ul [class.grid]="gridView">
     <li *ngFor="let product of products">
       <h2 routerLink="/product/{{product.id}}">{{product.name | uppercase}}</h2>
-      <img [src]="product.image" [alt]="product.name">
+      <img [src]="sanitizer.bypassSecurityTrustUrl(product.image)" [alt]="product.name">
       <p>
         ({{product.createdAt | date:'dd/MM/yy'}}) -
         {{product.description.length > 150 ? (product.description .slice(0, 150)) + '...' : product.description}}
