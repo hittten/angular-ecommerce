@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Product} from "../product";
 import {EventEmitter} from '@angular/core';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +16,7 @@ export class ProductListComponent implements OnInit {
   @Output() buttonClick = new EventEmitter<Product>();
   gridView = false;
 
-  constructor() {
+  constructor(public sanitizer: DomSanitizer) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

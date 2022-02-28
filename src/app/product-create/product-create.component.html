@@ -23,6 +23,13 @@
       </span>
     </p>
     <p>
+      <label for="image">image</label>
+      <input id="image" formControlName="image" type="file" (change)="fileChange($event)" required/>
+      <span *ngIf="getError('image') as message">
+        <strong>{{message}}</strong>
+      </span>
+    </p>
+    <p>
       <button class="button" type="submit" [disabled]="!productForm.valid">Save</button>
     </p>
   </form>
@@ -38,4 +45,5 @@
 <!--  <p><strong>name errors:</strong> {{productForm.controls["name"].errors | json}}</p>-->
 <!--  <p><strong>price errors:</strong> {{productForm.controls["price"].errors | json}}</p>-->
 <!--  <p><strong>description errors:</strong> {{productForm.controls["description"].errors | json}}</p>-->
+<!--  <p><strong>image errors:</strong> {{productForm.controls["image"].errors | json}}</p>-->
 </div>

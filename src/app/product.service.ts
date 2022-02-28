@@ -2,7 +2,11 @@ import {Injectable} from '@angular/core';
 import {PRODUCTS, SHOPPING_CART} from "./mock-products";
 import {Product} from "./product";
 
-export type ProductInput = Pick<Product, "name" | "price" | "description">
+export type ProductBase = Pick<Product, "name" | "price" | "description">
+
+export interface ProductInput extends ProductBase {
+  image: File
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +23,7 @@ export class ProductService {
       ...product,
       id,
       createdAt: new Date().toISOString(),
-      image: `https://picsum.photos/id/${id.slice(0,2)}/300/300`,
+      image: URL.createObjectURL(product.image),
     }
 
     PRODUCTS.push(data);
