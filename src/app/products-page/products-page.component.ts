@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from "../product.service";
 import {Subscription} from "rxjs";
 import {ProductClickEvent} from "../product-list/product-list.component";
@@ -6,7 +6,8 @@ import {ProductClickEvent} from "../product-list/product-list.component";
 @Component({
   selector: 'app-products-page',
   templateUrl: './products-page.component.html',
-  styleUrls: ['./products-page.component.scss']
+  styleUrls: ['./products-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsPageComponent implements OnInit, OnDestroy {
   private shoppingCartSubscription: Subscription = new Subscription();

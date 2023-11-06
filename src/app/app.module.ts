@@ -14,6 +14,12 @@ import { ShoppingCartPageComponent } from './shopping-cart-page/shopping-cart-pa
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { HttpClientModule } from "@angular/common/http";
+import { AppParent1Component } from './app-parent1/app-parent1.component';
+import { AppParent2Component } from './app-parent2/app-parent2.component';
+import { AppParent1Child1Component } from './app-parent1-child1/app-parent1-child1.component';
+import { AppParent1Child2Component } from './app-parent1-child2/app-parent1-child2.component';
+import { AppParent2Child1Component } from './app-parent2-child1/app-parent2-child1.component';
+import { AppParent2Child2Component } from './app-parent2-child2/app-parent2-child2.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +33,13 @@ import { HttpClientModule } from "@angular/common/http";
     ProductsPageComponent,
     ShoppingCartPageComponent,
     ProductDetailComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    AppParent1Component,
+    AppParent2Component,
+    AppParent1Child1Component,
+    AppParent1Child2Component,
+    AppParent2Child1Component,
+    AppParent2Child2Component
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,22 @@
 import {
   AfterContentChecked,
-  AfterContentInit, AfterViewChecked, AfterViewInit,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   DoCheck,
   OnDestroy,
   OnInit
 } from '@angular/core';
-import {Validators, FormBuilder} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {ProductInput, ProductService} from '../product.service';
 
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.scss']
+  styleUrls: ['./product-create.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCreateComponent implements OnInit, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
   productForm = this.fb.group({
@@ -23,40 +27,48 @@ export class ProductCreateComponent implements OnInit, DoCheck, AfterContentInit
   });
 
   private image?: File
+  someText = "texto inicial";
 
   constructor(
     private fb: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    // private cdr: ChangeDetectorRef,
   ) {
-    console.log('constructor');
+    console.log('[PRODUCT CREATE] - constructor');
+    // this.cdr.detach()
+    // setInterval(() => {
+    //   console.log("send tick")
+    // }, 1000)
   }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
+    // console.log('ngOnInit');
+    console.log('cambiar texto en oninit');
+    this.someText = "texto cambiado en el onInit"
   }
 
   ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked');
+    // console.log('ngAfterContentChecked');
   }
 
   ngAfterContentInit(): void {
-    console.log('ngAfterContentInit');
+    // console.log('ngAfterContentInit');
   }
 
   ngAfterViewChecked(): void {
-    console.log('ngAfterViewChecked');
+    // console.log('ngAfterViewChecked');
   }
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit');
+    // console.log('ngAfterViewInit');
   }
 
   ngDoCheck(): void {
-    console.log('ngDoCheck');
+    console.log('[PRODUCT CREATE] - do check');
   }
 
   ngOnDestroy(): void {
-    console.log('ngOnDestroy');
+    console.log('[PRODUCT CREATE] - OnDestroy');
   }
 
   getError(field: keyof ProductInput): string {
@@ -101,5 +113,15 @@ export class ProductCreateComponent implements OnInit, DoCheck, AfterContentInit
     const input = $event.target as HTMLInputElement
 
     this.image = input.files?.[0];
+  }
+
+  calculateTax(value: string) {
+    console.log("calculateTax")
+    return Number(value) * 1.21
+  }
+
+  changeText() {
+    console.log('cambiar texto en changeText');
+    this.someText = "texto cambiado por botón"
   }
 }
